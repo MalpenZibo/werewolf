@@ -1,0 +1,24 @@
+{
+  "files": {
+    "main.css": "/werewolf/static/css/main.8c8b27cf.chunk.css",
+    "main.js": "/werewolf/static/js/main.2c4e1549.chunk.js",
+    "main.js.map": "/werewolf/static/js/main.2c4e1549.chunk.js.map",
+    "runtime-main.js": "/werewolf/static/js/runtime-main.0af16d74.js",
+    "runtime-main.js.map": "/werewolf/static/js/runtime-main.0af16d74.js.map",
+    "static/js/2.ced8826a.chunk.js": "/werewolf/static/js/2.ced8826a.chunk.js",
+    "static/js/2.ced8826a.chunk.js.map": "/werewolf/static/js/2.ced8826a.chunk.js.map",
+    "static/js/3.c6e92ac4.chunk.js": "/werewolf/static/js/3.c6e92ac4.chunk.js",
+    "static/js/3.c6e92ac4.chunk.js.map": "/werewolf/static/js/3.c6e92ac4.chunk.js.map",
+    "static/js/4.a80491fa.chunk.js": "/werewolf/static/js/4.a80491fa.chunk.js",
+    "static/js/4.a80491fa.chunk.js.map": "/werewolf/static/js/4.a80491fa.chunk.js.map",
+    "index.html": "/werewolf/index.html",
+    "static/css/main.8c8b27cf.chunk.css.map": "/werewolf/static/css/main.8c8b27cf.chunk.css.map",
+    "static/js/2.ced8826a.chunk.js.LICENSE.txt": "/werewolf/static/js/2.ced8826a.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.0af16d74.js",
+    "static/js/2.ced8826a.chunk.js",
+    "static/css/main.8c8b27cf.chunk.css",
+    "static/js/main.2c4e1549.chunk.js"
+  ]
+}
