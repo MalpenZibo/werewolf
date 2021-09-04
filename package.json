@@ -1,8 +1,8 @@
 {
-  "name": "werewolf",
+  "name": "wherewolf",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://malpenzibo.github.io/werewolf",
+  "homepage": "https://malpenzibo.github.io/wherewolf",
   "dependencies": {
     "@buildo/formo": "^1.0.0-beta.8",
     "@material-ui/core": "^4.12.3",
