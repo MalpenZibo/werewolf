@@ -1,21 +1,21 @@
-import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { IntlProvider } from "./IntlProvider";
 import { RouterProvider, routing } from "./routing";
+import { StrictMode } from "react";
 
 const locale = "it";
 
 ReactDOM.render(
-  <React.StrictMode>
+  <StrictMode>
     <IntlProvider locale={locale}>
       <RouterProvider routing={routing}>
         <App />
       </RouterProvider>
     </IntlProvider>
-  </React.StrictMode>,
+  </StrictMode>,
   document.getElementById("root")
 );
 
