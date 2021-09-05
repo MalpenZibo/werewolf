@@ -1,16 +1,26 @@
 import {
+  Accordion,
+  AccordionSummary,
   AppBar,
   Box,
+  Grid,
   IconButton,
   Toolbar,
   Typography,
 } from "@material-ui/core";
 import ArrowBackSharp from "@material-ui/icons/ArrowBackSharp";
+import ExpandMore from "@material-ui/icons/ExpandMore";
 import { FormattedMessage } from "react-intl";
 import { locations, useRouter } from "../routing";
+import { Faction, factions, roles } from "../domain";
+import { pipe } from "fp-ts/function";
+import { array, record } from "fp-ts";
+import { useFormatFaction } from "../utils";
+import { RoleCard } from "../blocks/Common/RoleCard";
 
 export function Roles() {
   const router = useRouter();
+  const formatFaction = useFormatFaction();
 
   return (
     <Box display="flex" width={1} flexDirection="column" alignItems="center">
@@ -31,6 +41,34 @@ export function Roles() {
           </Box>
         </Toolbar>
       </AppBar>
+      <Box display="flex" width={1} flexDirection="column" alignItems="center">
+        {pipe(
+          factions,
+          array.map((f: Faction) => (
+            <Accordion key={f}>
+              <AccordionSummary expandIcon={<ExpandMore />}>
+                <Typography>{formatFaction(f)}</Typography>
+              </AccordionSummary>
+              <Box m={2}>
+                <Grid
+                  container
+                  direction="row"
+                  spacing={2}
+                  justifyContent="center"
+                  alignItems="center"
+                >
+                  {pipe(
+                    roles,
+                    record.filter((r) => r.faction === f),
+                    record.toArray,
+                    array.map(([, r]) => <RoleCard role={r} />)
+                  )}
+                </Grid>
+              </Box>
+            </Accordion>
+          ))
+        )}
+      </Box>
     </Box>
   );
 }
