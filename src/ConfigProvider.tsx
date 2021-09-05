@@ -11,9 +11,9 @@ type Props = BuildConfig & {
   children: JSX.Element;
 };
 
-export function BuildConfigProvider({ children }: Props) {
+export function BuildConfigProvider({ basepath, children }: Props) {
   return (
-    <BuildConfigContext.Provider value={option.some({})}>
+    <BuildConfigContext.Provider value={option.some({ basepath })}>
       {children}
     </BuildConfigContext.Provider>
   );

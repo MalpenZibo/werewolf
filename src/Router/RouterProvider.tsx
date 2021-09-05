@@ -84,9 +84,11 @@ export function initializeRouter<T extends ILocation>() {
     const formatLocation = (l: T) => {
       const formatted = props.routing.formatLocation(l);
       return (
-        "/" +
-        pipe(props.basepath, option.getOrElse(constant(""))) +
-        (formatted !== "/" ? formatted : "")
+        pipe(
+          props.basepath,
+          option.map((b) => "/" + b),
+          option.getOrElse(constant(""))
+        ) + formatted
       );
     };
 

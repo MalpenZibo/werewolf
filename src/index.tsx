@@ -3,19 +3,19 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { IntlProvider } from "./IntlProvider";
-import { RouterProvider, routing } from "./routing";
 import { StrictMode } from "react";
-import { option } from "fp-ts";
+import { BuildConfigProvider } from "./ConfigProvider";
+import { buildConfig } from "./config";
 
 const locale = "it";
 
 ReactDOM.render(
   <StrictMode>
-    <IntlProvider locale={locale}>
-      <RouterProvider basepath={option.some("wherewolf")} routing={routing}>
+    <BuildConfigProvider {...buildConfig}>
+      <IntlProvider locale={locale}>
         <App />
-      </RouterProvider>
-    </IntlProvider>
+      </IntlProvider>
+    </BuildConfigProvider>
   </StrictMode>,
   document.getElementById("root")
 );
