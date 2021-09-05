@@ -5,13 +5,14 @@ import reportWebVitals from "./reportWebVitals";
 import { IntlProvider } from "./IntlProvider";
 import { RouterProvider, routing } from "./routing";
 import { StrictMode } from "react";
+import { option } from "fp-ts";
 
 const locale = "it";
 
 ReactDOM.render(
   <StrictMode>
     <IntlProvider locale={locale}>
-      <RouterProvider routing={routing}>
+      <RouterProvider basepath={option.some("wherewolf")} routing={routing}>
         <App />
       </RouterProvider>
     </IntlProvider>

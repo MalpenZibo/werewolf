@@ -7,7 +7,8 @@ import {
   SetStateAction,
 } from "react";
 import { Option } from "fp-ts/Option";
-import { option } from "fp-ts";
+import { array, option, string, nonEmptyArray } from "fp-ts";
+import { constant, pipe } from "fp-ts/function";
 
 interface ILocation {
   readonly _tag: string;
@@ -36,6 +37,7 @@ export type Routing<T extends ILocation> = {
 
 type Props<T extends ILocation> = {
   routing: Routing<T>;
+  basepath: Option<string>;
   children: JSX.Element;
 };
 
@@ -49,12 +51,26 @@ export function initializeRouter<T extends ILocation>() {
   >(option.none);
 
   const RouterProvider = (props: Props<T>) => {
+    const skipN = pipe(
+      props.basepath,
+      option.map((b) => b.split("/").length + 1),
+      option.getOrElse(constant(0))
+    );
+
+    const getPathname = () =>
+      pipe(
+        window.location.pathname,
+        string.split("/"),
+        nonEmptyArray.fromReadonlyNonEmptyArray,
+        array.dropLeft(skipN)
+      ).join("/");
+
     const [location, setLocation] = useState(
-      props.routing.parseLocation(window.location.pathname)
+      props.routing.parseLocation(getPathname())
     );
 
     const handleLocationChanges = () => {
-      setLocation(props.routing.parseLocation(window.location.pathname));
+      setLocation(props.routing.parseLocation(getPathname()));
     };
 
     useEffect(() => {
@@ -65,9 +81,23 @@ export function initializeRouter<T extends ILocation>() {
       };
     });
 
+    const formatLocation = (l: T) => {
+      const formatted = props.routing.formatLocation(l);
+      return (
+        "/" +
+        pipe(props.basepath, option.getOrElse(constant(""))) +
+        (formatted !== "/" ? formatted : "")
+      );
+    };
+
+    const internalRouting = {
+      parseLocation: props.routing.parseLocation,
+      formatLocation,
+    };
+
     return (
       <RouterContext.Provider
-        value={option.some({ routing: props.routing, location, setLocation })}
+        value={option.some({ routing: internalRouting, location, setLocation })}
       >
         {props.children}
       </RouterContext.Provider>
@@ -83,6 +113,7 @@ export function initializeRouter<T extends ILocation>() {
 
     const navigateTo = (location: T) => {
       const newLocation = ctx.value.routing.formatLocation(location);
+      console.log(newLocation);
       window.history.pushState(null, "", newLocation);
       window.scrollTo(0, 0);
       ctx.value.setLocation(location);

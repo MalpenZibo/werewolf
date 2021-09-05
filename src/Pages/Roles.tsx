@@ -22,8 +22,6 @@ export function Roles() {
   const router = useRouter();
   const formatFaction = useFormatFaction();
 
-  console.log("test");
-
   return (
     <Box display="flex" width={1} flexDirection="column" alignItems="center">
       <AppBar position="static">
