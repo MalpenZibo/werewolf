@@ -1,6 +1,8 @@
 import { array, record } from "fp-ts";
 import * as S from "fp-ts/string";
 import { pipe } from "fp-ts/function";
+import * as t from "io-ts";
+import { NonEmptyString } from "io-ts-types/NonEmptyString";
 
 export interface Role {
   readonly id: RoleId;
@@ -169,3 +171,8 @@ export const factions = pipe(
   array.map(([, r]) => r.faction),
   array.uniq<Faction>(S.Eq)
 );
+
+export const Player = t.type({
+  name: NonEmptyString,
+});
+export type Player = t.TypeOf<typeof Player>;

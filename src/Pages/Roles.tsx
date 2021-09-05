@@ -16,7 +16,7 @@ import { Faction, factions, roles } from "../domain";
 import { pipe } from "fp-ts/function";
 import { array, record } from "fp-ts";
 import { useFormatFaction } from "../utils";
-import { RoleCard } from "../blocks/Common/RoleCard";
+import { RoleCard } from "../blocks/RoleCard";
 
 export function Roles() {
   const router = useRouter();
@@ -61,7 +61,7 @@ export function Roles() {
                     roles,
                     record.filter((r) => r.faction === f),
                     record.toArray,
-                    array.map(([, r]) => <RoleCard role={r} />)
+                    array.map(([, r]) => <RoleCard key={r.id} role={r} />)
                   )}
                 </Grid>
               </Box>

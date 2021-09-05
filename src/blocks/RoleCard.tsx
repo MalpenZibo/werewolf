@@ -1,8 +1,8 @@
 import { Box, Card, CardContent, Grid, Typography } from "@material-ui/core";
-import { Role } from "../../domain";
-import { DarkAuraIcon } from "../../Icons/DarkAuraIcon";
-import { MysticalIcon } from "../../Icons/MysticalIcon";
-import { useFormatRole } from "../../utils";
+import { Role } from "../domain";
+import { DarkAuraIcon } from "../Icons/DarkAuraIcon";
+import { MysticalIcon } from "../Icons/MysticalIcon";
+import { useFormatRole } from "../utils";
 
 type Props = {
   role: Role;

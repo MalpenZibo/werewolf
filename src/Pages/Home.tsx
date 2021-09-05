@@ -16,6 +16,14 @@ export function Home() {
       >
         <FormattedMessage id="role" />
       </Button>
+
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={() => router.navigateTo(locations.players)}
+      >
+        <FormattedMessage id="players" />
+      </Button>
     </Box>
   );
 }
