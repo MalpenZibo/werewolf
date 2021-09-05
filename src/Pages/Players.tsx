@@ -64,7 +64,13 @@ export function Players() {
           </Box>
         </Toolbar>
       </AppBar>
-      <Box display="flex" m={2} flexDirection="row" alignItems="center">
+      <Box
+        display="flex"
+        m={2}
+        width={1}
+        flexDirection="row"
+        alignItems="center"
+      >
         <Grid
           container
           direction="row"
