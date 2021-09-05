@@ -2,10 +2,13 @@
     "appTitle": "WhereWolf",
     "genericError": "Si è verificato un errore",
     "save": "Salva",
-    "Cancel": "Annulla",
+    "ok": "Si",
+    "cancel": "Annulla",
     "form.validators.defined": "Il valore deve essere definito",
     "form.validators.nonBlankString": "Il campo deve essere compilato",
+    "form.validators.uniqueString": "Il nome è già presente",
     "role": "Ruoli",
+    "players": "Giocatori",
     "faction.general": "Autonomi",
     "faction.village": "Villaggio",
     "faction.wolf": "Lupi",
@@ -44,5 +47,9 @@
     "role.madman.name": "Pazzo",
     "role.madman.description": "Se viene ucciso dai Lupi Mannari, la notte successiva il loro attacco sarà annullato. Vince se viene ucciso dai Lupi Mannari",
     "role.jester.name": "Giullare",
-    "role.jester.description": "Se viene messo al rogo, il giorno successivo il rogo sarà annullato a prescindere dai voti e dai poteri utilizzati. Vince se messo al rogo"
+    "role.jester.description": "Se viene messo al rogo, il giorno successivo il rogo sarà annullato a prescindere dai voti e dai poteri utilizzati. Vince se messo al rogo",
+    "player.delete.confirmDialog.title": "Cancellazione Giocatore",
+    "player.delete.confirmDialog.content": "Sei sicuro di voler cancellare il giocatore?",
+    "player.form.label.title": "Aggiungi un giocatore",
+    "player.form.label.name": "Inserisci il nome del giocatore"
 }

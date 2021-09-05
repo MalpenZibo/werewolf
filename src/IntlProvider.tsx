@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { Option } from "fp-ts/Option";
 import { constant, pipe } from "fp-ts/function";
 import { IntlProvider as InternalIntlProvider } from "react-intl";
-import { Waiting } from "./blocks/Waiting";
+import { Waiting } from "./blocks/Common/Waiting";
 
 type Locale = "it";
 

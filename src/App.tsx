@@ -1,6 +1,7 @@
 import { pipe, constant } from "fp-ts/function";
 import "./App.css";
 import { Home } from "./Pages/Home";
+import { Players } from "./Pages/Players";
 import { Roles } from "./Pages/Roles";
 import { foldLocation } from "./Router/RouterProvider";
 import { useRouter } from "./routing";
@@ -14,7 +15,7 @@ function App(): JSX.Element {
       Home: constant(<Home />),
       Roles: constant(<Roles />),
       Game: constant(<div></div>),
-      Players: constant(<div></div>),
+      Players: constant(<Players />),
     })
   );
 }
