@@ -58,9 +58,18 @@ export function initializeRouter<T extends ILocation>() {
       option.getOrElse(constant(0))
     );
 
+    const pathname = props.useHashHistory
+      ? pipe(
+          window.location.pathname +
+            window.location.search +
+            window.location.hash,
+          string.replace("#", "")
+        )
+      : window.location.pathname;
+
     const getPathname = () =>
       pipe(
-        window.location.pathname,
+        pathname,
         string.split("/"),
         nonEmptyArray.fromReadonlyNonEmptyArray,
         array.dropLeft(skipN)
