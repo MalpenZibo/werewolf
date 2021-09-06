@@ -25,7 +25,11 @@ function App(): JSX.Element {
   const buildConfig = useBuildConfigContext();
 
   return (
-    <RouterProvider basepath={buildConfig.basepath} routing={routing}>
+    <RouterProvider
+      basepath={buildConfig.basepath}
+      useHashHistory
+      routing={routing}
+    >
       <InternalApp />
     </RouterProvider>
   );

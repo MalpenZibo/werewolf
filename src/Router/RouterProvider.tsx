@@ -38,6 +38,7 @@ export type Routing<T extends ILocation> = {
 type Props<T extends ILocation> = {
   routing: Routing<T>;
   basepath: Option<string>;
+  useHashHistory?: boolean;
   children: JSX.Element;
 };
 
@@ -58,16 +59,12 @@ export function initializeRouter<T extends ILocation>() {
     );
 
     const getPathname = () =>
-      "/" +
       pipe(
         window.location.pathname,
         string.split("/"),
         nonEmptyArray.fromReadonlyNonEmptyArray,
         array.dropLeft(skipN)
       ).join("/");
-
-    console.log(getPathname());
-    console.log(props.basepath);
 
     const [location, setLocation] = useState(
       props.routing.parseLocation(getPathname())
@@ -85,16 +82,14 @@ export function initializeRouter<T extends ILocation>() {
       };
     });
 
-    const formatLocation = (l: T) => {
-      const formatted = props.routing.formatLocation(l);
-      return (
-        pipe(
-          props.basepath,
-          option.map((b) => "/" + b),
-          option.getOrElse(constant(""))
-        ) + formatted
-      );
-    };
+    const formatLocation = (l: T) =>
+      pipe(
+        props.basepath,
+        option.map((b) => "/" + b),
+        option.getOrElse(constant(""))
+      ) +
+      (props.useHashHistory ? "/#" : "") +
+      props.routing.formatLocation(l);
 
     const internalRouting = {
       parseLocation: props.routing.parseLocation,
