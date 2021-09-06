@@ -66,6 +66,9 @@ export function initializeRouter<T extends ILocation>() {
         array.dropLeft(skipN)
       ).join("/");
 
+    console.log(getPathname());
+    console.log(props.basepath);
+
     const [location, setLocation] = useState(
       props.routing.parseLocation(getPathname())
     );
