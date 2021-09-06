@@ -58,6 +58,7 @@ export function initializeRouter<T extends ILocation>() {
     );
 
     const getPathname = () =>
+      "/" +
       pipe(
         window.location.pathname,
         string.split("/"),
