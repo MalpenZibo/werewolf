@@ -44,7 +44,6 @@ export function PlayerCard(props: Props) {
         title="player.delete.confirmDialog.title"
         content="player.delete.confirmDialog.content"
         onConfirm={() => {
-          console.log("prova");
           setDeleteDialogOpen(false);
           props.onDelete();
         }}

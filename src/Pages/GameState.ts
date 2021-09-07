@@ -4,19 +4,27 @@ import { assignRoleToPlayers } from "../gameplay";
 import { setValue } from "../localStorage";
 import { pipe } from "fp-ts/function";
 
-type State =
+export type State =
+  | {
+      view: "init";
+      gameData: GameData;
+    }
   | {
       view: "selectPlayers";
     }
   | { view: "showRole"; playerRoles: { player: Player; role: Role }[] };
 
-type Action = {
-  type: "assignRoleToPlayer";
-  payload: Player[];
-};
+type Action =
+  | { type: "startFreshGame" }
+  | {
+      type: "assignRoleToPlayer";
+      payload: Player[];
+    };
 
 export function reducer(_state: State, action: Action): State {
   switch (action.type) {
+    case "startFreshGame":
+      return { view: "selectPlayers" };
     case "assignRoleToPlayer":
       const playerRoles = assignRoleToPlayers(action.payload);
       setValue("gameData", GameData, {
@@ -34,11 +42,14 @@ export function reducer(_state: State, action: Action): State {
 }
 
 export function foldStatus(match: {
+  whenInit: (gameData: GameData) => JSX.Element;
   whenSelectPlayers: () => JSX.Element;
   whenShowRole: (playerRoles: { player: Player; role: Role }[]) => JSX.Element;
 }): (state: State) => JSX.Element {
   return (state) => {
     switch (state.view) {
+      case "init":
+        return match.whenInit(state.gameData);
       case "selectPlayers":
         return match.whenSelectPlayers();
       case "showRole":

@@ -6,18 +6,34 @@ import {
   Typography,
 } from "@material-ui/core";
 import { ArrowBackSharp } from "@material-ui/icons";
+import { option } from "fp-ts";
 import { constant, pipe } from "fp-ts/function";
 import { useReducer } from "react";
 import { FormattedMessage } from "react-intl";
+import { ConfirmationDialog } from "../blocks/Common/ConfirmationDialog";
 import { SelectPlayers } from "../blocks/SelectPlayers";
 import { ShowRole } from "../blocks/ShowRole";
+import { GameData } from "../domain";
+import { getValue } from "../localStorage";
 import { locations, useRouter } from "../routing";
-import { foldStatus, reducer } from "./GameState";
+import { foldStatus, reducer, State } from "./GameState";
 
 export function Game() {
   const router = useRouter();
 
-  const [state, dispatch] = useReducer(reducer, { view: "selectPlayers" });
+  const [state, dispatch] = useReducer(
+    reducer,
+    pipe(
+      getValue("gameData", GameData),
+      option.fold<GameData, State>(
+        constant({ view: "selectPlayers" }),
+        (gameData) => ({
+          view: "init",
+          gameData: gameData,
+        })
+      )
+    )
+  );
 
   return (
     <Box display="flex" width={1} flexDirection="column" alignItems="center">
@@ -48,6 +64,20 @@ export function Game() {
         {pipe(
           state,
           foldStatus({
+            whenInit: (_gameData) => (
+              <ConfirmationDialog
+                open
+                title="game.resumeGame.title"
+                content="game.resumeGame.content"
+                onConfirm={() => {}}
+                onCancel={() => {
+                  localStorage.removeItem("gameData");
+                  dispatch({ type: "startFreshGame" });
+                }}
+                confirmLabel="game.resumeGame.confirm"
+                cancelLabel="game.resumeGame.cancel"
+              />
+            ),
             whenSelectPlayers: constant(
               <SelectPlayers
                 onNext={(players) =>

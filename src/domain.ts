@@ -75,12 +75,19 @@ const healer: Role = {
   faction: "village",
   fitness: 40,
 };
-const farmer: Role = {
+const farmer1: Role = {
   id: "farmer",
   aura: "light",
   mystical: false,
   faction: "village",
-  fitness: 400,
+  fitness: 200,
+};
+const farmer2: Role = {
+  id: "farmer",
+  aura: "light",
+  mystical: false,
+  faction: "village",
+  fitness: 200,
 };
 const innkeeper: Role = {
   id: "innkeeper",
@@ -149,7 +156,8 @@ export const roles = {
   medium,
   witch,
   healer,
-  farmer,
+  farmer1,
+  farmer2,
   innkeeper,
   bard,
   monk,
@@ -211,3 +219,4 @@ export const GameData = t.type({
   phase: Phase,
   playersRole: t.array(PlayerRole),
 });
+export type GameData = t.TypeOf<typeof GameData>;

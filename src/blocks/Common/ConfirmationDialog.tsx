@@ -15,6 +15,8 @@ type Props = {
   content: string;
   onConfirm: IO<void>;
   onCancel: IO<void>;
+  confirmLabel?: string;
+  cancelLabel?: string;
 };
 
 export function ConfirmationDialog(props: Props) {
@@ -30,10 +32,14 @@ export function ConfirmationDialog(props: Props) {
       </DialogContent>
       <DialogActions>
         <Button autoFocus onClick={props.onCancel} color="primary">
-          <FormattedMessage id="cancel" />
+          <FormattedMessage
+            id={props.cancelLabel ? props.cancelLabel : "cancel"}
+          />
         </Button>
         <Button onClick={props.onConfirm} color="primary">
-          <FormattedMessage id="ok" />
+          <FormattedMessage
+            id={props.confirmLabel ? props.confirmLabel : "ok"}
+          />
         </Button>
       </DialogActions>
     </Dialog>
