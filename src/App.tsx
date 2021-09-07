@@ -1,6 +1,7 @@
 import { pipe, constant } from "fp-ts/function";
 import "./App.css";
 import { useBuildConfigContext } from "./ConfigProvider";
+import { Game } from "./Pages/Game";
 import { Home } from "./Pages/Home";
 import { Players } from "./Pages/Players";
 import { Roles } from "./Pages/Roles";
@@ -15,7 +16,7 @@ function InternalApp(): JSX.Element {
     foldLocation({
       Home: constant(<Home />),
       Roles: constant(<Roles />),
-      Game: constant(<div></div>),
+      Game: constant(<Game />),
       Players: constant(<Players />),
     })
   );
