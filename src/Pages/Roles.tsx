@@ -61,7 +61,11 @@ export function Roles() {
                     roles,
                     record.filter((r) => r.faction === f),
                     record.toArray,
-                    array.map(([, r]) => <RoleCard key={r.id} role={r} />)
+                    array.map(([, r]) => (
+                      <Grid item xs={12} sm={6} md={4} lg={3}>
+                        <RoleCard key={r.id} role={r} />
+                      </Grid>
+                    ))
                   )}
                 </Grid>
               </Box>

@@ -203,6 +203,11 @@ const PlayerRole = t.type({
   roleId: RoleId,
 });
 
+const Phase = t.keyof({
+  showRole: true,
+});
+
 export const GameData = t.type({
+  phase: Phase,
   playersRole: t.array(PlayerRole),
 });

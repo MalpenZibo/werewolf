@@ -20,6 +20,7 @@ export function reducer(_state: State, action: Action): State {
     case "assignRoleToPlayer":
       const playerRoles = assignRoleToPlayers(action.payload);
       setValue("gameData", GameData, {
+        phase: "showRole",
         playersRole: pipe(
           playerRoles,
           array.map((v) => ({ player: v.player, roleId: v.role.id }))

@@ -56,7 +56,7 @@ export function Game() {
               />
             ),
             whenShowRole: (playerRoles) => (
-              <ShowRole playerRoles={playerRoles} />
+              <ShowRole playerRoles={playerRoles} onStartGame={() => {}} />
             ),
           })
         )}
