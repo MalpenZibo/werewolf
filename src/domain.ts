@@ -218,5 +218,6 @@ const Phase = t.keyof({
 export const GameData = t.type({
   phase: Phase,
   playersRole: t.array(PlayerRole),
+  nightNumber: t.number,
 });
 export type GameData = t.TypeOf<typeof GameData>;

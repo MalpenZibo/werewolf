@@ -86,8 +86,12 @@ export function Game() {
               />
             ),
             whenShowRole: (playerRoles) => (
-              <ShowRole playerRoles={playerRoles} onStartGame={() => {}} />
+              <ShowRole
+                playerRoles={playerRoles}
+                onStartGame={() => dispatch({ type: "startNight" })}
+              />
             ),
+            whenNight: (_playersRole, _night) => <></>,
           })
         )}
       </Box>
