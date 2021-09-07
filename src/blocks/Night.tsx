@@ -7,10 +7,11 @@ import { RoleCard } from "./RoleCard";
 
 type Props = {
   playerRoles: { player: Player; role: Role }[];
-  onStartGame: IO<void>;
+  nightNumber: number;
+  onDiscussion: IO<void>;
 };
 
-export function ShowRole(props: Props) {
+export function Night(props: Props) {
   return (
     <Box display="flex" width={1} alignItems="center" flexDirection="column">
       <Box mt={2}>
@@ -36,7 +37,7 @@ export function ShowRole(props: Props) {
               </Box>
             </Box>
           )}
-          onProceed={props.onStartGame}
+          onProceed={props.onDiscussion}
         />
       </Box>
     </Box>

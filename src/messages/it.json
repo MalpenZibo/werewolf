@@ -6,7 +6,7 @@
     "cancel": "Annulla",
     "next": "Avanti",
     "prev": "Precedente",
-    "start": "Inizia",
+    "start": "Procedi",
     "form.validators.defined": "Il valore deve essere definito",
     "form.validators.nonBlankString": "Il campo deve essere compilato",
     "form.validators.uniqueString": "Il nome è già presente",
@@ -62,6 +62,6 @@
     "game.resumeGame.cancel": "Inizia nuova",
     "game.players.noPlayersDefined": "Configura dei giocatori prima di iniziare la configurazione della partita",
     "game.players.playerNumber": "Numero di giocatori: {amount} - Minimo {minAmount}",
-    "game.showRole.title": "Mostra il ruolo ad ogni giocatore in segreto chiamandoto da te.",
-    "game.showRole.finish": "Hai finito di mostrare i ruoli. Clicca \"Inizia\" per iniziare il gioco"
+    "game.showRole.title": "Mostra il ruolo ad ogni giocatore in segreto chiamandolo da te.",
+    "game.showRole.finish": "Hai finito di mostrare i ruoli. Clicca \"Procedi\" per iniziare il gioco"
 }

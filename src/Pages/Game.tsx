@@ -11,6 +11,7 @@ import { constant, pipe } from "fp-ts/function";
 import { useReducer } from "react";
 import { FormattedMessage } from "react-intl";
 import { ConfirmationDialog } from "../blocks/Common/ConfirmationDialog";
+import { Night } from "../blocks/Night";
 import { SelectPlayers } from "../blocks/SelectPlayers";
 import { ShowRole } from "../blocks/ShowRole";
 import { GameData } from "../domain";
@@ -91,7 +92,13 @@ export function Game() {
                 onStartGame={() => dispatch({ type: "startNight" })}
               />
             ),
-            whenNight: (_playersRole, _night) => <></>,
+            whenNight: (playersRole, nightNumber) => (
+              <Night
+                playerRoles={playersRole}
+                nightNumber={nightNumber}
+                onDiscussion={() => {}}
+              />
+            ),
           })
         )}
       </Box>
