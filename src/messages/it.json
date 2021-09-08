@@ -63,5 +63,11 @@
     "game.players.noPlayersDefined": "Configura dei giocatori prima di iniziare la configurazione della partita",
     "game.players.playerNumber": "Numero di giocatori: {amount} - Minimo {minAmount}",
     "game.showRole.title": "Mostra il ruolo ad ogni giocatore in segreto chiamandolo da te.",
-    "game.showRole.finish": "Hai finito di mostrare i ruoli. Clicca \"Procedi\" per iniziare il gioco"
+    "game.showRole.finish": "Hai finito di mostrare i ruoli. Clicca \"Procedi\" per iniziare il gioco",
+    "game.showRole.noTraitor": "Non è presente un traditore",
+    "game.showRole.traitor": "{name} è il traditore",
+    "game.showRole.noMissingRole": "Tutti i ruoli sono presenti",
+    "game.showRole.missingRole": "Almeno questi {amount} ruoli non sono presenti",
+    "game.showRole.noSinner": "Non è presente un peccatore",
+    "game.showRole.sinner": "{name} è il peccatore"
 }
