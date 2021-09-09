@@ -7,9 +7,12 @@
     "next": "Avanti",
     "prev": "Precedente",
     "start": "Procedi",
+    "close": "Chiudi",
     "form.validators.defined": "Il valore deve essere definito",
     "form.validators.nonBlankString": "Il campo deve essere compilato",
     "form.validators.uniqueString": "Il nome è già presente",
+    "dark": "Oscura",
+    "light": "Chiara",
     "game": "Gioco",
     "role": "Ruoli",
     "players": "Giocatori",
@@ -69,5 +72,9 @@
     "game.showRole.noMissingRole": "Tutti i ruoli sono presenti",
     "game.showRole.missingRole": "Almeno questi {amount} ruoli non sono presenti",
     "game.showRole.noSinner": "Non è presente un peccatore",
-    "game.showRole.sinner": "{name} è il peccatore"
+    "game.showRole.sinner": "{name} è il peccatore",
+    "game.night.roleNotPresent": "Questo ruolo non è presente in gioco, chiamalo comunque per mantenere il dubbio",
+    "game.night.roleDied": "Il giocatore con questo ruolo è stato ucciso, chiamalo comunque per mantenere il dubbio",
+    "game.night.seer.selectPlayer": "Seleziona il giocatore di cui vuoi sapere l'aura",
+    "showAuraDialog.title": "{name} ha un'aura"
 }

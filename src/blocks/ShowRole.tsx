@@ -2,14 +2,14 @@ import { Box, Typography } from "@material-ui/core";
 import { IO } from "fp-ts/IO";
 import { constant, pipe } from "fp-ts/function";
 import { FormattedMessage } from "react-intl";
-import { Player, Role, roles } from "../domain";
+import { PlayerData, roles } from "../domain";
 import { foldShowRoleAction } from "../gameplay";
 import { Stepper } from "./Common/Stepper";
 import { RoleCard } from "./RoleCard";
 import { array, option } from "fp-ts";
 
 type Props = {
-  playerRoles: { player: Player; role: Role }[];
+  playersData: PlayerData[];
   onStartGame: IO<void>;
 };
 
@@ -28,17 +28,17 @@ export function ShowRole(props: Props) {
               <FormattedMessage id="game.showRole.finish" />
             </Typography>
           }
-          collection={props.playerRoles}
-          content={(playerRole) => (
+          collection={props.playersData}
+          content={(playerData) => (
             <Box display="flex" flexDirection="column" alignItems="center">
               <Box mb={2}>
-                <Typography variant="h6">{playerRole.player.name}</Typography>
+                <Typography variant="h6">{playerData.player.name}</Typography>
               </Box>
               <Box display="flex" width={1}>
-                <RoleCard role={playerRole.role} />
+                <RoleCard role={roles[playerData.roleId]} />
               </Box>
               {pipe(
-                { role: playerRole.role, playerRoles: props.playerRoles },
+                { roleId: playerData.roleId, playersData: props.playersData },
                 foldShowRoleAction({
                   whenWolves: option.fold(
                     constant(

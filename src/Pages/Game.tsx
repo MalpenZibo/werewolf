@@ -86,15 +86,15 @@ export function Game() {
                 }
               />
             ),
-            whenShowRole: (playerRoles) => (
+            whenShowRole: (playersData) => (
               <ShowRole
-                playerRoles={playerRoles}
+                playersData={playersData}
                 onStartGame={() => dispatch({ type: "startNight" })}
               />
             ),
-            whenNight: (playersRole, nightNumber) => (
+            whenNight: (playersData, nightNumber) => (
               <Night
-                playerRoles={playersRole}
+                playersData={playersData}
                 nightNumber={nightNumber}
                 onDiscussion={() => {}}
               />

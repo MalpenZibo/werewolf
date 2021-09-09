@@ -1,6 +1,6 @@
 import { array, eq, option, record, nonEmptyArray } from "fp-ts";
 import { pipe } from "fp-ts/function";
-import { Player, Role, RoleId, roles } from "./domain";
+import { Player, PlayerData, Role, RoleId, roles } from "./domain";
 import { Option } from "fp-ts/Option";
 import { NonEmptyArray } from "fp-ts/NonEmptyArray";
 
@@ -50,20 +50,18 @@ function fitnessShuffle<T>(
   };
 }
 
-export function assignRoleToPlayers(
-  players: Player[]
-): { player: Player; role: Role }[] {
+export function generatePlayersData(players: Player[]): PlayerData[] {
   const wolfNumber = Math.floor(players.length / 4) - 1;
 
   const shuffledPlayers = pipe(players, shuffle);
 
-  let playerRoles: { player: Player; role: Role }[] = [];
+  let playerRoles: { player: Player; roleId: RoleId }[] = [];
   pipe(
     shuffledPlayers.pop(),
     option.fromNullable,
     option.fold(
       () => {},
-      (p) => playerRoles.push({ player: p, role: roles.primaryWolf })
+      (p) => playerRoles.push({ player: p, roleId: roles.primaryWolf.id })
     )
   );
   pipe(
@@ -71,7 +69,7 @@ export function assignRoleToPlayers(
     option.fromNullable,
     option.fold(
       () => {},
-      (p) => playerRoles.push({ player: p, role: roles.seer })
+      (p) => playerRoles.push({ player: p, roleId: roles.seer.id })
     )
   );
 
@@ -85,7 +83,7 @@ export function assignRoleToPlayers(
       option.fromNullable,
       option.fold(
         () => {},
-        (p) => playerRoles.push({ player: p, role: wolfRoles[i] })
+        (p) => playerRoles.push({ player: p, roleId: wolfRoles[i].id })
       )
     );
   }
@@ -114,24 +112,29 @@ export function assignRoleToPlayers(
         option.fromNullable,
         option.fold(
           () => {},
-          ([, r]) => playerRoles.push({ player: p, role: r })
+          ([, r]) => playerRoles.push({ player: p, roleId: r.id })
         )
       )
     )
   );
 
-  return pipe(playerRoles, shuffle);
+  return pipe(
+    playerRoles,
+    shuffle,
+    array.map((v) => ({ ...v, alive: true }))
+  );
 }
 
 export const wolves = ["primaryWolf", "secondaryWolf", "youngWolf"];
 
-export const rolesWithAction: RoleId[][] = [
-  ["seer"],
-  ["primaryWolf", "secondaryWolf", "youngWolf"],
-  ["wizard"],
-  ["medium"],
-  ["witch"],
-  ["healer"],
+type NightTurn = "seer" | "wolves" | "wizard" | "medium" | "witch" | "healer";
+export const nightTurns: NightTurn[] = [
+  "seer",
+  "wolves",
+  "wizard",
+  "medium",
+  "witch",
+  "healer",
 ];
 
 export function foldShowRoleAction(match: {
@@ -139,31 +142,28 @@ export function foldShowRoleAction(match: {
   whenMonk: (missingRoles: Option<NonEmptyArray<Role>>) => JSX.Element;
   whenPriest: (sinner: Option<Player>) => JSX.Element;
 }): (data: {
-  role: Role;
-  playerRoles: { player: Player; role: Role }[];
+  roleId: RoleId;
+  playersData: PlayerData[];
 }) => JSX.Element | undefined {
-  return (data: {
-    role: Role;
-    playerRoles: { player: Player; role: Role }[];
-  }) => {
-    const { role, playerRoles } = data;
+  return (data: { roleId: RoleId; playersData: PlayerData[] }) => {
+    const { roleId, playersData } = data;
     if (
       pipe(
         wolves,
-        array.findFirst((v) => v === role.id),
+        array.findFirst((v) => v === roleId),
         option.isSome
       )
     ) {
       return match.whenWolves(
         pipe(
-          playerRoles,
-          array.findFirst((v) => v.role.id === "traitor"),
+          playersData,
+          array.findFirst((v) => v.roleId === "traitor"),
           option.map((v) => v.player)
         )
       );
     }
 
-    if (role.id === "monk") {
+    if (roleId === "monk") {
       return match.whenMonk(
         pipe(
           roles,
@@ -171,8 +171,8 @@ export function foldShowRoleAction(match: {
           array.map(([, r]) => r),
           array.difference<Role>(eq.fromEquals((a, b) => a.id === b.id))(
             pipe(
-              playerRoles,
-              array.map((pr) => pr.role)
+              playersData,
+              array.map((pr) => roles[pr.roleId])
             )
           ),
           shuffle,
@@ -191,17 +191,43 @@ export function foldShowRoleAction(match: {
       );
     }
 
-    if (role.id === "priest") {
+    if (roleId === "priest") {
       return match.whenPriest(
         pipe(
-          playerRoles,
+          playersData,
           array.findFirstMap((v) =>
-            v.role.id === "sinner" ? option.some(v.player) : option.none
+            v.roleId === "sinner" ? option.some(v.player) : option.none
           )
         )
       );
     }
 
     return;
+  };
+}
+
+export function foldNightAction(match: {
+  whenSeer: () => JSX.Element;
+  whenWolves: () => JSX.Element;
+  whenWizard: () => JSX.Element;
+  whenMedium: () => JSX.Element;
+  whenWitch: () => JSX.Element;
+  whenHealer: () => JSX.Element;
+}): (turn: NightTurn) => JSX.Element {
+  return (turn: NightTurn) => {
+    switch (turn) {
+      case "seer":
+        return match.whenSeer();
+      case "wolves":
+        return match.whenWolves();
+      case "wizard":
+        return match.whenWizard();
+      case "medium":
+        return match.whenMedium();
+      case "witch":
+        return match.whenWitch();
+      case "healer":
+        return match.whenHealer();
+    }
   };
 }

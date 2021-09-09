@@ -1,8 +1,6 @@
-import { array } from "fp-ts";
-import { GameData, Player, Role } from "../domain";
-import { assignRoleToPlayers } from "../gameplay";
+import { GameData, Player, PlayerData } from "../domain";
+import { generatePlayersData } from "../gameplay";
 import { setValue } from "../localStorage";
-import { pipe } from "fp-ts/function";
 
 export type State =
   | {
@@ -12,10 +10,10 @@ export type State =
   | {
       view: "selectPlayers";
     }
-  | { view: "showRole"; playerRoles: { player: Player; role: Role }[] }
+  | { view: "showRole"; playersData: PlayerData[] }
   | {
       view: "night";
-      playerRoles: { player: Player; role: Role }[];
+      playersData: PlayerData[];
       nightNumber: number;
     };
 
@@ -34,32 +32,26 @@ export function reducer(state: State, action: Action): State {
     case "startFreshGame":
       return { view: "selectPlayers" };
     case "assignRoleToPlayer":
-      const playerRoles = assignRoleToPlayers(action.payload);
+      const playersData = generatePlayersData(action.payload);
       setValue("gameData", GameData, {
         phase: "showRole",
-        playersRole: pipe(
-          playerRoles,
-          array.map((v) => ({ player: v.player, roleId: v.role.id }))
-        ),
+        playersData,
         nightNumber: 0,
       });
       return {
         view: "showRole",
-        playerRoles: playerRoles,
+        playersData: playersData,
       };
     case "startNight":
       if (state.view === "showRole") {
         setValue("gameData", GameData, {
           phase: "showRole",
-          playersRole: pipe(
-            state.playerRoles,
-            array.map((v) => ({ player: v.player, roleId: v.role.id }))
-          ),
+          playersData: state.playersData,
           nightNumber: 0,
         });
         return {
           view: "night",
-          playerRoles: state.playerRoles,
+          playersData: state.playersData,
           nightNumber: 0,
         };
       } else {
@@ -71,11 +63,8 @@ export function reducer(state: State, action: Action): State {
 export function foldStatus(match: {
   whenInit: (gameData: GameData) => JSX.Element;
   whenSelectPlayers: () => JSX.Element;
-  whenShowRole: (playerRoles: { player: Player; role: Role }[]) => JSX.Element;
-  whenNight: (
-    playerRoles: { player: Player; role: Role }[],
-    nightNumber: number
-  ) => JSX.Element;
+  whenShowRole: (playerRoles: PlayerData[]) => JSX.Element;
+  whenNight: (playerRoles: PlayerData[], nightNumber: number) => JSX.Element;
 }): (state: State) => JSX.Element {
   return (state) => {
     switch (state.view) {
@@ -84,9 +73,9 @@ export function foldStatus(match: {
       case "selectPlayers":
         return match.whenSelectPlayers();
       case "showRole":
-        return match.whenShowRole(state.playerRoles);
+        return match.whenShowRole(state.playersData);
       case "night":
-        return match.whenNight(state.playerRoles, state.nightNumber);
+        return match.whenNight(state.playersData, state.nightNumber);
     }
   };
 }

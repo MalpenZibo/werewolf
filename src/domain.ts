@@ -76,14 +76,14 @@ const healer: Role = {
   fitness: 40,
 };
 const farmer1: Role = {
-  id: "farmer",
+  id: "farmer1",
   aura: "light",
   mystical: false,
   faction: "village",
   fitness: 200,
 };
 const farmer2: Role = {
-  id: "farmer",
+  id: "farmer2",
   aura: "light",
   mystical: false,
   faction: "village",
@@ -178,7 +178,8 @@ const RoleId = t.keyof({
   medium: true,
   witch: true,
   healer: true,
-  farmer: true,
+  farmer1: true,
+  farmer2: true,
   innkeeper: true,
   bard: true,
   monk: true,
@@ -206,10 +207,12 @@ export const Player = t.type({
 });
 export type Player = t.TypeOf<typeof Player>;
 
-const PlayerRole = t.type({
+const PlayerData = t.type({
   player: Player,
   roleId: RoleId,
+  alive: t.boolean,
 });
+export type PlayerData = t.TypeOf<typeof PlayerData>;
 
 const Phase = t.keyof({
   showRole: true,
@@ -217,7 +220,7 @@ const Phase = t.keyof({
 
 export const GameData = t.type({
   phase: Phase,
-  playersRole: t.array(PlayerRole),
+  playersData: t.array(PlayerData),
   nightNumber: t.number,
 });
 export type GameData = t.TypeOf<typeof GameData>;
