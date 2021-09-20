@@ -55,7 +55,7 @@ export function WolvesNight(props: Props) {
                 ).join(", ")}`}
               </Typography>
               <Typography variant="h6">
-                <FormattedMessage id="game.night.seer.action" />
+                <FormattedMessage id="game.night.wolves.action" />
               </Typography>
 
               <SelectPlayer

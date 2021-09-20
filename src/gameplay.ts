@@ -128,6 +128,7 @@ export function generatePlayersData(players: Player[]): PlayerData[] {
 export const wolves: RoleId[] = ["primaryWolf", "secondaryWolf", "youngWolf"];
 
 type NightTurn = "seer" | "wolves" | "wizard" | "medium" | "witch" | "healer";
+export const firstNightTurns: NightTurn[] = ["seer", "wizard"];
 export const nightTurns: NightTurn[] = [
   "seer",
   "wolves",

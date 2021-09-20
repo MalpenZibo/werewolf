@@ -81,6 +81,7 @@
     "game.night.wolves.confirmation.title": "Conferma giocatore attaccato",
     "game.night.wolves.confirmation.content": "Sei sicuro di voler attaccare {name}?",
     "game.night.wizard.action": "Seleziona un giocatore per sapere se è un Mistico",
+    "game.night.medium.action": "Seleziona il giocatore morto di cui vuoi sapere l'aura",
     "showAuraDialog.title": "{name} ha un'aura",
     "showMysticalDialog.mystical": "{name} è un mistico",
     "showMysticalDialog.nonMystical": "{name} non è un mistico"
