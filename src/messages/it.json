@@ -73,8 +73,15 @@
     "game.showRole.missingRole": "Almeno questi {amount} ruoli non sono presenti",
     "game.showRole.noSinner": "Non è presente un peccatore",
     "game.showRole.sinner": "{name} è il peccatore",
+    "game.night.title": "E' notte, tutti i giocatori devono chiudere gli occhi, procedi a turno come indicato facendo aprire gli occhi solo ai giocatori indicati",
     "game.night.roleNotPresent": "Questo ruolo non è presente in gioco, chiamalo comunque per mantenere il dubbio",
     "game.night.roleDied": "Il giocatore con questo ruolo è stato ucciso, chiamalo comunque per mantenere il dubbio",
-    "game.night.seer.selectPlayer": "Seleziona il giocatore di cui vuoi sapere l'aura",
-    "showAuraDialog.title": "{name} ha un'aura"
+    "game.night.seer.action": "Seleziona il giocatore di cui vuoi sapere l'aura",
+    "game.night.wolves.action": "Seleziona il giocatore che volete uccidere",
+    "game.night.wolves.confirmation.title": "Conferma giocatore attaccato",
+    "game.night.wolves.confirmation.content": "Sei sicuro di voler attaccare {name}?",
+    "game.night.wizard.action": "Seleziona un giocatore per sapere se è un Mistico",
+    "showAuraDialog.title": "{name} ha un'aura",
+    "showMysticalDialog.mystical": "{name} è un mistico",
+    "showMysticalDialog.nonMystical": "{name} non è un mistico"
 }

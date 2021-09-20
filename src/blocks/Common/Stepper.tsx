@@ -22,7 +22,7 @@ export function Stepper<T>(props: Props<T>) {
 
   return (
     <Box display="flex" width={1} alignItems="center" flexDirection="column">
-      <Box mt={2}>
+      <Box mt={2} width={1}>
         {pipe(
           currentElement,
           option.fold(constant(props.lastScreen), props.content)

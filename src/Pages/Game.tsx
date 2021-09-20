@@ -68,8 +68,8 @@ export function Game() {
             whenInit: (_gameData) => (
               <ConfirmationDialog
                 open
-                title="game.resumeGame.title"
-                content="game.resumeGame.content"
+                title={<FormattedMessage id="game.resumeGame.title" />}
+                content={<FormattedMessage id="game.resumeGame.content" />}
                 onConfirm={() => {}}
                 onCancel={() => {
                   localStorage.removeItem("gameData");

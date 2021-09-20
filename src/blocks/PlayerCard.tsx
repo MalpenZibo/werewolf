@@ -12,6 +12,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import { IO } from "fp-ts//IO";
 import { useState } from "react";
 import { ConfirmationDialog } from "./Common/ConfirmationDialog";
+import { FormattedMessage } from "react-intl";
 
 type Props = {
   player: Player;
@@ -41,8 +42,8 @@ export function PlayerCard(props: Props) {
       </Card>
       <ConfirmationDialog
         open={deleteDialogOpen}
-        title="player.delete.confirmDialog.title"
-        content="player.delete.confirmDialog.content"
+        title={<FormattedMessage id="player.delete.confirmDialog.title" />}
+        content={<FormattedMessage id="player.delete.confirmDialog.content" />}
         onConfirm={() => {
           setDeleteDialogOpen(false);
           props.onDelete();
