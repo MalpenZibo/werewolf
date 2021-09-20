@@ -27,7 +27,9 @@ export function useFormatRole(): {
         return formatMessage({ id: "role.witch.name" });
       case "healer":
         return formatMessage({ id: "role.healer.name" });
-      case "farmer":
+      case "farmer1":
+        return formatMessage({ id: "role.farmer.name" });
+      case "farmer2":
         return formatMessage({ id: "role.farmer.name" });
       case "innkeeper":
         return formatMessage({ id: "role.innkeeper.name" });
@@ -68,7 +70,9 @@ export function useFormatRole(): {
         return formatMessage({ id: "role.witch.description" });
       case "healer":
         return formatMessage({ id: "role.healer.description" });
-      case "farmer":
+      case "farmer1":
+        return formatMessage({ id: "role.farmer.description" });
+      case "farmer2":
         return formatMessage({ id: "role.farmer.description" });
       case "innkeeper":
         return formatMessage({ id: "role.innkeeper.description" });

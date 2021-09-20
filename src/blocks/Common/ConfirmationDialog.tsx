@@ -11,8 +11,8 @@ import { FormattedMessage } from "react-intl";
 
 type Props = {
   open: boolean;
-  title: string;
-  content: string;
+  title: JSX.Element;
+  content: JSX.Element;
   onConfirm: IO<void>;
   onCancel: IO<void>;
   confirmLabel?: string;
@@ -22,13 +22,9 @@ type Props = {
 export function ConfirmationDialog(props: Props) {
   return (
     <Dialog open={props.open} onClose={props.onCancel}>
-      <DialogTitle>
-        <FormattedMessage id={props.title} />
-      </DialogTitle>
+      <DialogTitle>{props.title}</DialogTitle>
       <DialogContent>
-        <DialogContentText>
-          <FormattedMessage id={props.content} />
-        </DialogContentText>
+        <DialogContentText>{props.content}</DialogContentText>
       </DialogContent>
       <DialogActions>
         <Button autoFocus onClick={props.onCancel} color="primary">

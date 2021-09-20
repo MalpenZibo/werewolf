@@ -11,6 +11,7 @@ import { constant, pipe } from "fp-ts/function";
 import { useReducer } from "react";
 import { FormattedMessage } from "react-intl";
 import { ConfirmationDialog } from "../blocks/Common/ConfirmationDialog";
+import { Night } from "../blocks/Night";
 import { SelectPlayers } from "../blocks/SelectPlayers";
 import { ShowRole } from "../blocks/ShowRole";
 import { GameData } from "../domain";
@@ -67,8 +68,8 @@ export function Game() {
             whenInit: (_gameData) => (
               <ConfirmationDialog
                 open
-                title="game.resumeGame.title"
-                content="game.resumeGame.content"
+                title={<FormattedMessage id="game.resumeGame.title" />}
+                content={<FormattedMessage id="game.resumeGame.content" />}
                 onConfirm={() => {}}
                 onCancel={() => {
                   localStorage.removeItem("gameData");
@@ -85,8 +86,19 @@ export function Game() {
                 }
               />
             ),
-            whenShowRole: (playerRoles) => (
-              <ShowRole playerRoles={playerRoles} onStartGame={() => {}} />
+            whenShowRole: (playersData) => (
+              <ShowRole
+                playersData={playersData}
+                onStartGame={() => dispatch({ type: "startNight" })}
+              />
+            ),
+            whenNight: (playersData, nightNumber) => (
+              <Night
+                playersData={playersData}
+                nightNumber={nightNumber}
+                wolvesDoubleAttack={false}
+                onNightResult={() => {}}
+              />
             ),
           })
         )}
