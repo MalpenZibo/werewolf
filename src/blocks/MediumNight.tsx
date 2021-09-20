@@ -7,6 +7,7 @@ import { Player, PlayerData, roles } from "../domain";
 import { SelectPlayer } from "./SelectPlayer";
 import { Option } from "fp-ts/Option";
 import { ShowAuraDialog } from "./Common/ShowAuraDialog";
+import { useFormatRole } from "../utils";
 
 type Props = {
   playersData: PlayerData[];
@@ -18,8 +19,13 @@ export function MediumNight(props: Props) {
     option.none
   );
 
+  const { formatName } = useFormatRole();
+
   return (
     <Box display="flex" width={1} flexDirection="column">
+      <Typography variant="h6">
+        <FormattedMessage id={formatName("medium")} />
+      </Typography>
       {pipe(
         props.playersData,
         array.findFirst((v) => v.roleId === "medium"),

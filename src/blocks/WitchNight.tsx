@@ -8,6 +8,7 @@ import { SelectPlayer } from "./SelectPlayer";
 import { Option } from "fp-ts/Option";
 import { Reader } from "fp-ts/Reader";
 import { ConfirmationDialog } from "./Common/ConfirmationDialog";
+import { useFormatRole } from "../utils";
 
 type Props = {
   playersData: PlayerData[];
@@ -20,8 +21,13 @@ export function WitchNight(props: Props) {
     option.none
   );
 
+  const { formatName } = useFormatRole();
+
   return (
     <Box display="flex" width={1} flexDirection="column">
+      <Typography variant="h6">
+        <FormattedMessage id={formatName("witch")} />
+      </Typography>
       {pipe(
         props.playersData,
         array.findFirst((v) => v.roleId === "witch"),

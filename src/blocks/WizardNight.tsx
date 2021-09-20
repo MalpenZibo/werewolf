@@ -6,8 +6,8 @@ import { FormattedMessage } from "react-intl";
 import { Player, PlayerData, roles } from "../domain";
 import { SelectPlayer } from "./SelectPlayer";
 import { Option } from "fp-ts/Option";
-import { ShowAuraDialog } from "./Common/ShowAuraDialog";
 import { ShowMysticalDialog } from "./Common/ShowMysticalDialog";
+import { useFormatRole } from "../utils";
 
 type Props = {
   playersData: PlayerData[];
@@ -19,8 +19,13 @@ export function WizardNight(props: Props) {
     option.none
   );
 
+  const { formatName } = useFormatRole();
+
   return (
     <Box display="flex" width={1} flexDirection="column">
+      <Typography variant="h6">
+        <FormattedMessage id={formatName("wizard")} />
+      </Typography>
       {pipe(
         props.playersData,
         array.findFirst((v) => v.roleId === "wizard"),
