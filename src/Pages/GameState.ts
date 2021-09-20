@@ -10,11 +10,10 @@ export type State =
   | {
       view: "selectPlayers";
     }
-  | { view: "showRole"; playersData: PlayerData[] }
+  | { view: "showRole"; gameData: GameData }
   | {
       view: "night";
-      playersData: PlayerData[];
-      nightNumber: number;
+      gameData: GameData;
     };
 
 type Action =
@@ -33,26 +32,28 @@ export function reducer(state: State, action: Action): State {
       return { view: "selectPlayers" };
     case "assignRoleToPlayer":
       const playersData = generatePlayersData(action.payload);
-      setValue("gameData", GameData, {
+      const gameData: GameData = {
         phase: "showRole",
         playersData,
         nightNumber: 0,
-      });
+        farmerTurnedIntoWolves: [],
+        healerUseHisAbility: false,
+      };
+      setValue("gameData", GameData, gameData);
       return {
         view: "showRole",
-        playersData: playersData,
+        gameData: gameData,
       };
     case "startNight":
       if (state.view === "showRole") {
-        setValue("gameData", GameData, {
-          phase: "showRole",
-          playersData: state.playersData,
-          nightNumber: 0,
-        });
+        const gameData: GameData = {
+          ...state.gameData,
+          phase: "night",
+        };
+        setValue("gameData", GameData, gameData);
         return {
           view: "night",
-          playersData: state.playersData,
-          nightNumber: 0,
+          gameData: gameData,
         };
       } else {
         return state;
@@ -73,9 +74,12 @@ export function foldStatus(match: {
       case "selectPlayers":
         return match.whenSelectPlayers();
       case "showRole":
-        return match.whenShowRole(state.playersData);
+        return match.whenShowRole(state.gameData.playersData);
       case "night":
-        return match.whenNight(state.playersData, state.nightNumber);
+        return match.whenNight(
+          state.gameData.playersData,
+          state.gameData.nightNumber
+        );
     }
   };
 }

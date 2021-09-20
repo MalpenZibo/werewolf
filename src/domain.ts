@@ -216,11 +216,14 @@ export type PlayerData = t.TypeOf<typeof PlayerData>;
 
 const Phase = t.keyof({
   showRole: true,
+  night: true,
 });
 
 export const GameData = t.type({
   phase: Phase,
   playersData: t.array(PlayerData),
   nightNumber: t.number,
+  healerUseHisAbility: t.boolean,
+  farmerTurnedIntoWolves: t.array(Player),
 });
 export type GameData = t.TypeOf<typeof GameData>;

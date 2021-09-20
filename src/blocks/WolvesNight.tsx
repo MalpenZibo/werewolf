@@ -13,6 +13,7 @@ import { ConfirmationDialog } from "./Common/ConfirmationDialog";
 type Props = {
   playersData: PlayerData[];
   onAttackedByWolves: Reader<Player, void>;
+  doubleTurn: boolean;
 };
 
 export function WolvesNight(props: Props) {
@@ -55,7 +56,13 @@ export function WolvesNight(props: Props) {
                 ).join(", ")}`}
               </Typography>
               <Typography variant="h6">
-                <FormattedMessage id="game.night.wolves.action" />
+                <FormattedMessage
+                  id={
+                    props.doubleTurn
+                      ? "game.night.wolves.action"
+                      : "game.night.wolves.action"
+                  }
+                />
               </Typography>
 
               <SelectPlayer

@@ -121,7 +121,11 @@ export function generatePlayersData(players: Player[]): PlayerData[] {
   return pipe(
     playerRoles,
     shuffle,
-    array.map((v) => ({ ...v, alive: true }))
+    array.map((v) => ({
+      ...v,
+      alive: true,
+      turnedIntoWolf: false,
+    }))
   );
 }
 
@@ -231,4 +235,21 @@ export function foldNightAction(match: {
         return match.whenHealer();
     }
   };
+}
+
+export function wolvesHierarchy(roleId: RoleId) {
+  switch (roleId) {
+    case "primaryWolf":
+      return 1;
+    case "secondaryWolf":
+      return 2;
+    case "farmer1":
+      return 3;
+    case "farmer2":
+      return 3;
+    case "youngWolf":
+      return 4;
+    default:
+      return 99;
+  }
 }

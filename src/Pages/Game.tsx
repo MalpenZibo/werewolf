@@ -96,7 +96,8 @@ export function Game() {
               <Night
                 playersData={playersData}
                 nightNumber={nightNumber}
-                onDiscussion={() => {}}
+                wolvesDoubleAttack={false}
+                onNightResult={() => {}}
               />
             ),
           })
