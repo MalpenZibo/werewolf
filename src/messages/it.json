@@ -98,5 +98,6 @@
     "farmerDeadDialog.killButton": "Lascia morire",
     "farmerDeadDialog.heroButton": "Muore uccidendo il lupo",
     "farmerDeadDialog.wolfDescendant": "Diventa un lupo",
-    "farmerDeadDialog.showWolves": "Senza far chiudere gli occhi ai lupi tocca {name} in modo che apra gli occhi e riconosca i lupi"
+    "farmerDeadDialog.showWolves": "Senza far chiudere gli occhi ai lupi tocca {name} in modo che apra gli occhi e riconosca i lupi",
+    "traitorDialog.showWolves": "Senza far chiudere gli occhi ai lupi tocca {name} in modo che apra gli occhi e riconosca i lupi"
 }
