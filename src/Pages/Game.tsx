@@ -12,6 +12,7 @@ import { useReducer } from "react";
 import { FormattedMessage } from "react-intl";
 import { ConfirmationDialog } from "../blocks/Common/ConfirmationDialog";
 import { Night } from "../blocks/Night";
+import { NightRecapAndDiscussion } from "../blocks/NightRecapAndDiscussion";
 import { SelectPlayers } from "../blocks/SelectPlayers";
 import { ShowRole } from "../blocks/ShowRole";
 import { GameData } from "../domain";
@@ -65,12 +66,14 @@ export function Game() {
         {pipe(
           state,
           foldStatus({
-            whenInit: (_gameData) => (
+            whenInit: (gameData) => (
               <ConfirmationDialog
                 open
                 title={<FormattedMessage id="game.resumeGame.title" />}
                 content={<FormattedMessage id="game.resumeGame.content" />}
-                onConfirm={() => {}}
+                onConfirm={() =>
+                  dispatch({ type: "resumeGame", payload: gameData })
+                }
                 onCancel={() => {
                   localStorage.removeItem("gameData");
                   dispatch({ type: "startFreshGame" });
@@ -97,7 +100,21 @@ export function Game() {
                 playersData={playersData}
                 nightNumber={nightNumber}
                 wolvesDoubleAttack={false}
-                onNightResult={() => {}}
+                onNightResult={(data) =>
+                  dispatch({ type: "endNight", payload: data })
+                }
+              />
+            ),
+            whenNightRecapAndDiscussion: (
+              playerKilled,
+              newsFromInn,
+              newsFromBard
+            ) => (
+              <NightRecapAndDiscussion
+                playerKilled={playerKilled}
+                newsFromInn={newsFromInn}
+                newsFromBard={newsFromBard}
+                onProceedWithVoting={() => {}}
               />
             ),
           })

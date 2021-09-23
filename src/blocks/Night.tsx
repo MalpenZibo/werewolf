@@ -4,7 +4,7 @@ import { constant, constNull, pipe } from "fp-ts/function";
 import { Reader } from "fp-ts/Reader";
 import { useState } from "react";
 import { FormattedMessage } from "react-intl";
-import { Player, PlayerData } from "../domain";
+import { Aura, Player, PlayerData } from "../domain";
 import {
   firstNightTurns,
   foldNightAction,
@@ -32,6 +32,7 @@ type Props = {
       killedPlayers: Player[];
       farmerIntoWolf: Option<Player>;
       healerUseHisAbility: boolean;
+      findAura: Option<Aura>;
     },
     void
   >;
@@ -39,6 +40,7 @@ type Props = {
 
 export function Night(props: Props) {
   const [killedPlayers, setKilledPlayers] = useState<Player[]>([]);
+  const [findAura, setFindAura] = useState<Option<Aura>>(option.none);
   const [showFarmerDecision, setShowFarmerDecision] = useState<Option<Player>>(
     option.none
   );
@@ -66,7 +68,12 @@ export function Night(props: Props) {
           }
           collection={props.nightNumber === 1 ? firstNightTurns : nightTurns}
           content={foldNightAction({
-            whenSeer: () => <SeerNight playersData={props.playersData} />,
+            whenSeer: () => (
+              <SeerNight
+                playersData={props.playersData}
+                onSelectedAura={(a) => setFindAura(option.some(a))}
+              />
+            ),
             whenWolves: () => (
               <Box display="flex" width={1} flexDirection="column">
                 <WolvesNight
@@ -224,6 +231,7 @@ export function Night(props: Props) {
               killedPlayers,
               farmerIntoWolf,
               healerUseHisAbility,
+              findAura: findAura,
             })
           }
         />

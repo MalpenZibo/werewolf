@@ -98,5 +98,11 @@
     "farmerDeadDialog.killButton": "Lascia morire",
     "farmerDeadDialog.heroButton": "Muore uccidendo il lupo",
     "farmerDeadDialog.wolfDescendant": "Diventa un lupo",
-    "farmerDeadDialog.showWolves": "Senza far chiudere gli occhi ai lupi tocca {name} in modo che apra gli occhi e riconosca i lupi"
+    "farmerDeadDialog.showWolves": "Senza far chiudere gli occhi ai lupi tocca {name} in modo che apra gli occhi e riconosca i lupi",
+    "traitorDialog.showWolves": "Senza far chiudere gli occhi ai lupi tocca {name} in modo che apra gli occhi e riconosca i lupi",
+    "game.nightRecapAndDiscussion.title": "E' giorno, i giocatori aprono gli occhi. Annuncia le seguenti notizie e fai partire la discussione",
+    "game.nightRecapAndDiscussion.playerKilled": "I seguenti giocatori sono morti:",
+    "game.nightRecapAndDiscussion.noPlayerKilled": "Nessuno",
+    "game.nightRecapAndDiscussion.newsFromInn": "Ci sono notizie dall'osteria",
+    "game.nightRecapAndDiscussion.newsFromBard": "Ci sono notizie dal bardo"
 }
