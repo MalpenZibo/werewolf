@@ -3,14 +3,16 @@ import { array, option } from "fp-ts";
 import { constant, pipe } from "fp-ts/function";
 import { useState } from "react";
 import { FormattedMessage } from "react-intl";
-import { Player, PlayerData, roles } from "../domain";
+import { Aura, Player, PlayerData, roles } from "../domain";
 import { SelectPlayer } from "./SelectPlayer";
 import { Option } from "fp-ts/Option";
 import { ShowAuraDialog } from "./Common/ShowAuraDialog";
 import { useFormatRole } from "../utils";
+import { Reader } from "fp-ts/Reader";
 
 type Props = {
   playersData: PlayerData[];
+  onSelectedAura: Reader<Aura, void>;
 };
 
 export function SeerNight(props: Props) {
@@ -88,6 +90,7 @@ export function SeerNight(props: Props) {
                       onClose={() => {
                         setSelectedPlayer(option.none);
                         setDialogOpen(false);
+                        props.onSelectedAura(v.aura);
                       }}
                     />
                   )),

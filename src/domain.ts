@@ -217,6 +217,7 @@ export type PlayerData = t.TypeOf<typeof PlayerData>;
 const Phase = t.keyof({
   showRole: true,
   night: true,
+  nightRecapAndDiscussion: true,
 });
 
 export const GameData = t.type({
