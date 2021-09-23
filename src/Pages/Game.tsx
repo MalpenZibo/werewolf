@@ -66,12 +66,14 @@ export function Game() {
         {pipe(
           state,
           foldStatus({
-            whenInit: (_gameData) => (
+            whenInit: (gameData) => (
               <ConfirmationDialog
                 open
                 title={<FormattedMessage id="game.resumeGame.title" />}
                 content={<FormattedMessage id="game.resumeGame.content" />}
-                onConfirm={() => {}}
+                onConfirm={() =>
+                  dispatch({ type: "resumeGame", payload: gameData })
+                }
                 onCancel={() => {
                   localStorage.removeItem("gameData");
                   dispatch({ type: "startFreshGame" });

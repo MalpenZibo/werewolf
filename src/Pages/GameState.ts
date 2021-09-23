@@ -43,6 +43,10 @@ type Action =
         healerUseHisAbility: boolean;
         findAura: Option<Aura>;
       };
+    }
+  | {
+      type: "resumeGame";
+      payload: GameData;
     };
 
 export function reducer(state: State, action: Action): State {
@@ -57,6 +61,7 @@ export function reducer(state: State, action: Action): State {
         nightNumber: 1,
         farmerTurnedIntoWolves: [],
         healerUseHisAbility: false,
+        lastTurn: option.none,
       };
       setValue("gameData", GameData, gameData);
       return {
@@ -87,7 +92,14 @@ export function reducer(state: State, action: Action): State {
               pipe(
                 action.payload.killedPlayers,
                 array.findFirst((p) => p.name === pd.player.name),
-                option.fold(constant(pd), constant({ ...pd, alive: false }))
+                option.fold(
+                  constant(pd),
+                  constant({
+                    ...pd,
+                    alive: false,
+                    killedDuringNightNumber: state.gameData.nightNumber,
+                  })
+                )
               )
             )
           ),
@@ -103,6 +115,11 @@ export function reducer(state: State, action: Action): State {
             )
           ),
           nightNumber: state.gameData.nightNumber + 1,
+          lastTurn: option.some({
+            killedDuringNight: action.payload.killedPlayers,
+            findAura: action.payload.findAura,
+            killedDuringDay: option.none,
+          }),
           phase: "nightRecapAndDiscussion",
         };
         setValue("gameData", GameData, gameData);
@@ -136,6 +153,54 @@ export function reducer(state: State, action: Action): State {
       } else {
         return state;
       }
+    case "resumeGame":
+      switch (action.payload.phase) {
+        case "showRole":
+          return {
+            view: "showRole",
+            gameData: action.payload,
+          };
+        case "night":
+          return {
+            view: "night",
+            gameData: action.payload,
+          };
+        case "nightRecapAndDiscussion":
+          return {
+            view: "nightRecapAndDiscussion",
+            gameData: action.payload,
+            playerKilled: pipe(
+              action.payload.lastTurn,
+              option.map((l) => l.killedDuringNight),
+              option.getOrElse<Player[]>(constant([]))
+            ),
+            newsFromBard: pipe(
+              action.payload.playersData,
+              array.findFirst((p) => p.roleId === "bard"),
+              option.map(() =>
+                pipe(
+                  action.payload.lastTurn,
+                  option.chain((l) => l.findAura),
+                  option.fold(constFalse, (a) => a === "light")
+                )
+              ),
+              option.getOrElse(constFalse)
+            ),
+            newsFromInn: pipe(
+              action.payload.playersData,
+              array.findFirst((p) => p.roleId === "innkeeper"),
+              option.map(() =>
+                pipe(
+                  action.payload.lastTurn,
+                  option.chain((l) => l.findAura),
+                  option.fold(constFalse, (a) => a === "dark")
+                )
+              ),
+              option.getOrElse(constFalse)
+            ),
+          };
+      }
+      return state;
   }
 }
 

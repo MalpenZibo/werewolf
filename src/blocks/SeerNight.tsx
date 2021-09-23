@@ -7,7 +7,6 @@ import { Aura, Player, PlayerData, roles } from "../domain";
 import { SelectPlayer } from "./SelectPlayer";
 import { Option } from "fp-ts/Option";
 import { ShowAuraDialog } from "./Common/ShowAuraDialog";
-import { useFormatRole } from "../utils";
 import { Reader } from "fp-ts/Reader";
 
 type Props = {
@@ -21,13 +20,8 @@ export function SeerNight(props: Props) {
     option.none
   );
 
-  const { formatName } = useFormatRole();
-
   return (
     <Box display="flex" width={1} flexDirection="column">
-      <Typography variant="h6">
-        <FormattedMessage id={formatName("seer")} />
-      </Typography>
       {pipe(
         props.playersData,
         array.findFirst((v) => v.roleId === "seer"),

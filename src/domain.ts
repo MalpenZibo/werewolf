@@ -3,6 +3,7 @@ import * as S from "fp-ts/string";
 import { pipe } from "fp-ts/function";
 import * as t from "io-ts";
 import { NonEmptyString } from "io-ts-types/NonEmptyString";
+import { option } from "io-ts-types/option";
 
 export interface Role {
   readonly id: RoleId;
@@ -193,7 +194,8 @@ export type RoleId = t.TypeOf<typeof RoleId>;
 
 export type Faction = "village" | "general" | "wolf";
 
-export type Aura = "light" | "dark";
+export const Aura = t.keyof({ light: true, dark: true });
+export type Aura = t.TypeOf<typeof Aura>;
 
 export const factions = pipe(
   roles,
@@ -220,11 +222,18 @@ const Phase = t.keyof({
   nightRecapAndDiscussion: true,
 });
 
+export const TurnEntry = t.type({
+  killedDuringNight: t.array(Player),
+  killedDuringDay: option(Player),
+  findAura: option(Aura),
+});
+
 export const GameData = t.type({
   phase: Phase,
   playersData: t.array(PlayerData),
   nightNumber: t.number,
   healerUseHisAbility: t.boolean,
   farmerTurnedIntoWolves: t.array(Player),
+  lastTurn: option(TurnEntry),
 });
 export type GameData = t.TypeOf<typeof GameData>;
